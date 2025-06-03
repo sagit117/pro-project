@@ -5,50 +5,46 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"time"
+
+	"ru.axel.pro.project/api"
+	"ru.axel.pro.project/config"
+	"ru.axel.pro.project/middleware"
 )
 
-type config struct {
-	port int
-}
-
-type application struct {
-	config config
-	logger *log.Logger
-}
-
 func main() {
-	var cfg config
+	var server_cfg config.ConfigServer
 
-	flag.IntVar(&cfg.port, "p", 3000, "API server port")
+	flag.IntVar(&server_cfg.Port, "p", 3000, "Server port")
+	flag.StringVar(&server_cfg.StaticPath, "s", "../static", "Path to static files")
 	flag.Parse()
 
-	// logger := log.New(os.Stdout, "", log.Ldate|log.Ltime)
+	logger := log.New(os.Stdout, "", log.Ldate|log.Ltime)
 
-	// app := &application{
-	// 	config: cfg,
-	// 	logger: logger,
-	// }
+	app := &config.Application{
+		ConfigServer: &server_cfg,
+		Logger:       logger,
+	}
 
-	fs := http.FileServer(http.Dir("../static"))
+	fs := http.FileServer(http.Dir(server_cfg.StaticPath))
 	mux := http.NewServeMux()
 
+	/* Routing */
 	mux.Handle("GET /", fs)
-	mux.HandleFunc("GET /api/v1/get/menu/side", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprint(w, "{ \"test\":\"test\"}")
-	})
+	api.Api_v1(mux, app)
 
 	srv := &http.Server{
-		Addr:         fmt.Sprintf(":%d", cfg.port),
-		Handler:      mux,
+		Addr:         fmt.Sprintf(":%d", server_cfg.Port),
+		Handler:      middleware.Middleware(mux, app),
 		IdleTimeout:  time.Minute,
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 30 * time.Second,
 	}
 
-	log.Printf("Listening on :%d...", cfg.port)
+	logger.Printf("Listening on :%d...", server_cfg.Port)
 	err := srv.ListenAndServe()
 	if err != nil {
-		log.Fatal(err)
+		logger.Fatal(err)
 	}
 }
