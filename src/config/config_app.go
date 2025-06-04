@@ -3,8 +3,8 @@ package config
 import "log"
 
 type ConfigServer struct {
-	Port       int
-	StaticPath string
+	Port int
+	// StaticPath string
 }
 
 type Application struct {

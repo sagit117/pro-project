@@ -20,8 +20,8 @@
 <template>
   <span>Меню приложения</span>
   <ul>
-    <li v-for="items in menu">
-      {{ items.name }}
+    <li v-for="item in menu">
+      <a :href="item.link">{{ item.name }}</a>
     </li>
   </ul>
 </template>

@@ -17,7 +17,7 @@ func main() {
 	var server_cfg config.ConfigServer
 
 	flag.IntVar(&server_cfg.Port, "p", 3000, "Server port")
-	flag.StringVar(&server_cfg.StaticPath, "s", "../static", "Path to static files")
+	// flag.StringVar(&server_cfg.StaticPath, "s", "../static/app-pro-project/dist", "Path to static files")
 	flag.Parse()
 
 	logger := log.New(os.Stdout, "", log.Ldate|log.Ltime)
@@ -27,11 +27,15 @@ func main() {
 		Logger:       logger,
 	}
 
-	fs := http.FileServer(http.Dir(server_cfg.StaticPath))
+	// fs := http.FileServer(http.Dir(server_cfg.StaticPath))
 	mux := http.NewServeMux()
 
 	/* Routing */
-	mux.Handle("GET /", fs)
+	// mux.HandleFunc("GET /", func(w http.ResponseWriter, r *http.Request) {
+	// 	http.Redirect(w, r, "/app/index.html", http.StatusSeeOther)
+	// })
+	// mux.Handle("GET /app", http.StripPrefix("/app", fs))
+	// mux.Handle("GET /", fs)
 	api.Api_v1(mux, app)
 
 	srv := &http.Server{
