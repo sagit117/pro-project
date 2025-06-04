@@ -9,6 +9,10 @@ import (
 
 func Middleware(next http.Handler, app *config.Application) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+		// cors
+		w.Header().Set("Access-Control-Request-Method", "POST, GET, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Origin", "http://localhost:5173")
+
 		start := time.Now()
 		next.ServeHTTP(w, req)
 
