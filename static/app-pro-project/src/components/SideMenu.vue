@@ -2,6 +2,7 @@
   import { fetchAppMenu, ErrorFetch } from "@/api/api.ts"
   import type { ISideMenuItem } from "@/api/api_interfaces"
   import { ref } from "vue";
+  import { RouterLink } from 'vue-router'
 
   const menu = ref<ISideMenuItem[]>([])
   
@@ -21,7 +22,10 @@
   <span>Меню приложения</span>
   <ul>
     <li v-for="item in menu">
-      <a :href="item.link">{{ item.name }}</a>
+      <RouterLink :to="{ path: item.link }">{{ item.name }}</RouterLink>
     </li>
   </ul>
 </template>
+
+<style scoped>
+</style>
