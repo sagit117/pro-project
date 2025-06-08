@@ -27,6 +27,7 @@
 <style scoped>
   .workspace {
     display: flex;
+    min-height: 100vh
   }
   .side_bar_container {
     padding: 1rem;
@@ -34,17 +35,17 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    box-shadow: 0px 14px 6px 0px var(--vt-c-text-dark-2);
+    box-shadow: 4px 0px 6px 0px var(--vt-c-text-dark-2);
   }
   .context {
-    min-width: 100vw;
-    min-height: 100vh;
+    /* min-width: 100vw;
+    min-height: 100vh; */
     display: flex;
     flex-direction: column;
     padding: 1rem;
   }
   .top_menu_container {
-    min-width: 100vw;
+    /* min-width: 100vw; */
     display: flex;
     padding: 1rem .5rem;
     box-shadow: 0px 0px 10px var(--vt-c-text-dark-2);
