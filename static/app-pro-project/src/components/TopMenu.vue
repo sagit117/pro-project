@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    
+  import { goRoute } from '@/common';
 </script>
 
 <template>
@@ -8,7 +8,7 @@
       <RouterLink :to="{ name: 'home' }">PRO-PROJECT</RouterLink>
     </div>
     <div class="link">
-      <button class="btn btn_green">Войти в систему</button>
+      <button class="btn btn_green" @click="goRoute({ name: 'auth' })">Войти в систему</button>
     </div>
   </div>
   

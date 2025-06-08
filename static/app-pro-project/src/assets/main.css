@@ -11,6 +11,10 @@ a, .green {
   padding: 3px;
 }
 
+.radius5 {
+  border-radius: 5px;
+}
+
 .btn {
   border-radius: 5px;
   padding: 8px 16px;

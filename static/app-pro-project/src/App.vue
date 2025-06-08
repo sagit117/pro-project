@@ -35,7 +35,7 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    box-shadow: 4px 0px 6px 0px var(--vt-c-text-dark-2);
+    box-shadow: 5px 2px 6px 0px var(--vt-c-text-dark-2);
   }
   .context {
     /* min-width: 100vw;
